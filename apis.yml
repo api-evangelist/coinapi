@@ -3,8 +3,8 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/coinapi/refs/heads/main/apis.yml
 name: CoinAPI
 tags:
-  - Cryptocurrency
   - Blockchain
+  - Cryptocurrency
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
@@ -20,8 +20,8 @@ apis:
   - aid: coinapi:coinapi
     name: CoinAPI
     tags:
-      - Cryptocurrency
       - Blockchain
+      - Cryptocurrency
     humanURL: https://www.coinapi.io/
     properties:
       - url: https://docs.coinapi.io/
