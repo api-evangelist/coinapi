@@ -1,42 +1,97 @@
 # CoinAPI (coinapi)
-CoinAPI is a platform that provides access to real-time and historical cryptocurrency data from over 100 exchanges. Users can easily access a wide range of data, including price updates, trading volumes, and order book information for various cryptocurrencies. CoinAPI offers a comprehensive and reliable data source for developers, traders, and investors who need accurate and up-to-date information to make informed decisions in the rapidly changing world of cryptocurrencies. Additionally, CoinAPI offers a set of tools and APIs that allow users to easily integrate cryptocurrency data into their applications, websites, and trading platforms. Overall, CoinAPI plays a vital role in facilitating access to crucial cryptocurrency data for users across the globe.
+
+CoinAPI is a financial data and execution platform delivering normalized real-time and historical cryptocurrency market data and trade execution across more than 350 exchanges. Its product family covers a Market Data API (REST, WebSocket, FIX, and flat-file S3 delivery) for trades, quotes, order books, OHLCV, exchange rates, and derivatives metrics; an EMS Trading API (Execution Management System) that lets users place, manage, and route orders across multiple venues through one normalized REST/WebSocket/FIX interface; and Index and Metrics APIs that aggregate cross-exchange data into reference indexes and risk metrics. FIX endpoints (fix.coinapi.io) use GeoDNS to route to the nearest datacenter for low-latency connectivity.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/coinapi/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Index 
-- **Position:** Consumer 
-- **Access:** 3rd-Party 
+- **Type:** Index
+- **Position:** Consuming
+- **Access:** 3rd-Party
 
-## Tags:
+## Tags
 
- - Cryptocurrency, Blockchain
+- Blockchain
+- Crypto Indexes
+- Crypto Metrics
+- Cryptocurrency
+- EMS
+- Execution Management
+- FIX
+- Market Data
+- Order Books
+- REST
+- WebSocket
 
 ## Timestamps
 
-- **Created:** 2025-03-01 
-- **Modified:** 2025-03-01 
+- **Created:** 2025-03-01
+- **Modified:** 2026-04-28
 
 ## APIs
 
-### CoinAPI
-CoinAPI is a financial data provider that offers access to real-time and historical cryptocurrency market data through its API. With a wide range of data available, including prices, trading volume, order book data, and more, CoinAPI helps businesses and individuals make informed decisions when trading in the volatile cryptocurrency market. By providing accurate and reliable data, CoinAPI allows users to track and analyze market trends, monitor their investments, and develop trading strategies. Whether you are a professional trader, a financial institution, or a casual investor, CoinAPI offers the tools you need to stay ahead in the fast-paced world of cryptocurrencies.
+### CoinAPI Market Data API
+Normalized cryptocurrency market data covering more than 350 exchanges and 28,000+ assets. Provides trades, quotes, order books, OHLCV time series, exchange rates, and derivatives metrics (funding rates, mark prices, liquidations, open interest, volumes). Delivered through REST for historical snapshots and lookups, WebSocket and FIX for real-time streaming, and S3 flat files for bulk historical analysis.
 
-**Human URL:** [ https://www.coinapi.io/?_gl=1*14y4dpn*_up*MQ..*_ga*NjQyNjczOTU2LjE3NDA3ODYyMzI.*_ga_063767QGZW*MTc0MDc4NjIzMi4xLjAuMTc0MDc4NjIzMi4wLjAuMA..*_ga_EXCQW96F7R*MTc0MDc4NjIzMi4xLjAuMTc0MDc4NjIzMi4wLjAuMA..]( https://www.coinapi.io/?_gl=1*14y4dpn*_up*MQ..*_ga*NjQyNjczOTU2LjE3NDA3ODYyMzI.*_ga_063767QGZW*MTc0MDc4NjIzMi4xLjAuMTc0MDc4NjIzMi4wLjAuMA..*_ga_EXCQW96F7R*MTc0MDc4NjIzMi4xLjAuMTc0MDc4NjIzMi4wLjAuMA..)
+**Human URL:** [https://www.coinapi.io/products/market-data-api](https://www.coinapi.io/products/market-data-api)
 
+**Base URL:** `https://rest.coinapi.io`
 
-#### Tags:
+#### Tags
 
- - Cryptocurrency, Blockchain
+- Crypto Metrics, Cryptocurrency, Exchange Rates, FIX, Market Data, OHLCV, Order Books, REST, WebSocket
 
 #### Properties
 
-- [Documentation]( https://www.coinapi.io/?_gl=1*14y4dpn*_up*MQ..*_ga*NjQyNjczOTU2LjE3NDA3ODYyMzI.*_ga_063767QGZW*MTc0MDc4NjIzMi4xLjAuMTc0MDc4NjIzMi4wLjAuMA..*_ga_EXCQW96F7R*MTc0MDc4NjIzMi4xLjAuMTc0MDc4NjIzMi4wLjAuMA..)
+- [Documentation](https://docs.coinapi.io/market-data/)
+- [Landing Page](https://www.coinapi.io/products/market-data-api)
+- [FAQ](https://www.coinapi.io/products/market-data-api/faq)
+- [FIX Documentation](https://www.coinapi.io/products/market-data-api/docs/fix)
+
+### CoinAPI EMS Trading API
+CoinAPI's Execution Management System (EMS) is a unified, multi-exchange crypto trading API that lets institutional traders, market makers, and builders place, modify, and cancel orders across many connected venues from a single normalized interface. Available over REST, WebSocket, and FIX, the EMS handles credential vaulting, order routing, position and balance retrieval, and execution reporting.
+
+**Human URL:** [https://www.coinapi.io/products/ems-api](https://www.coinapi.io/products/ems-api)
+
+#### Tags
+
+- Cryptocurrency, EMS, Execution Management, FIX, Order Management, REST, Trading, WebSocket
+
+#### Properties
+
+- [Landing Page](https://www.coinapi.io/products/ems-api)
+- [FAQ](https://www.coinapi.io/products/ems-api/faq)
+- [Guide](https://www.coinapi.io/blog/maximize-trading-potential-ems-trading-api-guide)
+
+### CoinAPI Indexes API
+The Indexes API aggregates data from many exchanges to compute reference rates and benchmark indexes that summarize broad market conditions for a given asset. Useful for derivatives settlement, NAV computation, and research where a single, defensible price point is required across a fragmented market.
+
+**Human URL:** [https://www.coinapi.io/products/indexes-api](https://www.coinapi.io/products/indexes-api)
+
+#### Tags
+
+- Aggregation, Benchmark, Cryptocurrency, Indexes, Reference Rates
+
+#### Properties
+
+- [Landing Page](https://www.coinapi.io/products/indexes-api)
+- [Documentation](https://docs.coinapi.io/)
+
+## Common Properties
+
+- [Website](https://www.coinapi.io/)
+- [Documentation](https://docs.coinapi.io/)
+- [Pricing](https://www.coinapi.io/pricing)
+- [Changelog](https://docs.coinapi.io/general/changelog/)
+- [Status](https://status.coinapi.io/)
+- [GitHub](https://github.com/coinapi)
+- [Blog](https://www.coinapi.io/blog)
+- [Privacy Policy](https://www.coinapi.io/privacy-policy)
+- [Terms of Service](https://www.coinapi.io/terms-of-service)
 
 ## Maintainers
 
 **FN:** Kin Lane
 
-**Email:** info@apievangelist.com
-
+**Email:** kin@apievangelist.com
