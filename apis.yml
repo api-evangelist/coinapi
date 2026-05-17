@@ -15,7 +15,7 @@ tags:
   - REST
   - WebSocket
 type: Index
-x-type: company
+kind: company
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-03-01'
@@ -152,17 +152,17 @@ common:
     url: https://docs.coinapi.io/
   - type: Pricing
     url: https://www.coinapi.io/pricing
-  - type: Changelog
+  - type: ChangeLog
     url: https://docs.coinapi.io/general/changelog/
-  - type: Status
+  - type: StatusPage
     url: https://status.coinapi.io/
   - type: GitHub
     url: https://github.com/coinapi
   - type: Blog
     url: https://www.coinapi.io/blog
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.coinapi.io/privacy-policy
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.coinapi.io/terms-of-service
 maintainers:
   - FN: Kin Lane
