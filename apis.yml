@@ -146,6 +146,8 @@ apis:
       - Compute fund NAV and accounting marks
       - Provide retail apps with a single representative price
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/coinapi
   - type: Website
     url: https://www.coinapi.io/
   - type: Documentation
