@@ -166,6 +166,8 @@ common:
     url: https://www.coinapi.io/privacy-policy
   - type: TermsOfService
     url: https://www.coinapi.io/terms-of-service
+  - type: LLMsTxt
+    url: https://www.coinapi.io/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
