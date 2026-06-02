@@ -1,0 +1,1037 @@
+asyncapi: '2.6.0'
+info:
+  title: CoinAPI Market Data WebSocket API
+  version: '1.0.0'
+  description: >
+    Real-time cryptocurrency market data streaming over WebSocket using a
+    Subscribe-Publish model. After establishing the WebSocket connection the
+    client sends a `hello` (or `subscribe`) message containing API key,
+    heartbeat preference, and subscription filters; the server then streams
+    the requested data types (trade, quote, book, book5, book20, book50,
+    book_l3, ohlcv, exrate, asset, exchange, symbol) along with reconnect,
+    heartbeat, and error control messages.
+
+
+    Source: https://docs.coinapi.io/market-data/websocket/  (sub-pages:
+    Endpoints, General, Messages).
+  contact:
+    name: CoinAPI Support
+    url: https://www.coinapi.io/
+  license:
+    name: Proprietary - CoinAPI Terms of Service
+    url: https://www.coinapi.io/terms-of-service
+  termsOfService: https://www.coinapi.io/terms-of-service
+
+servers:
+  production:
+    url: ws.coinapi.io/v1/
+    protocol: wss
+    description: >
+      Production WebSocket endpoint (GeoDNS auto-routing to the nearest
+      datacenter). Use `wss://ws.coinapi.io/v1/`.
+  production-ncsa:
+    url: api-ncsa.coinapi.io/v1/
+    protocol: wss
+    description: Region-specific production endpoint - North & South America.
+  production-emea:
+    url: api-emea.coinapi.io/v1/
+    protocol: wss
+    description: Region-specific production endpoint - Europe, Middle East & Africa.
+  production-apac:
+    url: api-apac.coinapi.io/v1/
+    protocol: wss
+    description: Region-specific production endpoint - Asia Pacific.
+
+defaultContentType: application/json
+
+channels:
+  /:
+    description: >
+      Single WebSocket channel. The client publishes control messages
+      (`hello`, `subscribe`, `unsubscribe`) and the server publishes market
+      data messages (`trade`, `quote`, `book`, `book5`, `book20`, `book50`,
+      `book_l3`, `ohlcv`, `exrate`, `asset`, `exchange`, `symbol`) plus
+      control messages (`reconnect`, `heartbeat`, `error`).
+    publish:
+      summary: Messages sent by the client to CoinAPI.
+      operationId: clientToServer
+      message:
+        oneOf:
+          - $ref: '#/components/messages/Hello'
+          - $ref: '#/components/messages/Subscribe'
+          - $ref: '#/components/messages/Unsubscribe'
+    subscribe:
+      summary: Messages streamed by CoinAPI to the client.
+      operationId: serverToClient
+      message:
+        oneOf:
+          - $ref: '#/components/messages/Trade'
+          - $ref: '#/components/messages/Quote'
+          - $ref: '#/components/messages/Book'
+          - $ref: '#/components/messages/Book5'
+          - $ref: '#/components/messages/Book20'
+          - $ref: '#/components/messages/Book50'
+          - $ref: '#/components/messages/BookL3'
+          - $ref: '#/components/messages/Ohlcv'
+          - $ref: '#/components/messages/Exrate'
+          - $ref: '#/components/messages/Asset'
+          - $ref: '#/components/messages/Exchange'
+          - $ref: '#/components/messages/Symbol'
+          - $ref: '#/components/messages/Reconnect'
+          - $ref: '#/components/messages/Heartbeat'
+          - $ref: '#/components/messages/Error'
+
+components:
+  messages:
+
+    Hello:
+      name: hello
+      title: Hello (handshake)
+      summary: >
+        Initial handshake / subscription override message. Required after the
+        WebSocket connection is opened. May be repeated to replace the entire
+        subscription scope. Carries the API key, heartbeat preference, and
+        subscription filters.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/HelloPayload'
+
+    Subscribe:
+      name: subscribe
+      title: Subscribe (incremental)
+      summary: >
+        Adds data types and/or filters to the existing subscription scope
+        without discarding prior subscriptions.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscribePayload'
+
+    Unsubscribe:
+      name: unsubscribe
+      title: Unsubscribe (incremental)
+      summary: >
+        Removes specific data types and/or filters from the current
+        subscription scope. Other subscriptions remain active.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscribePayload'
+
+    Trade:
+      name: trade
+      title: Trade
+      summary: Sent for every executed transaction (order book match).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TradeMessage'
+
+    Quote:
+      name: quote
+      title: Quote (order book level 1)
+      summary: Sent for each update on the best bid or ask level.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/QuoteMessage'
+
+    Book:
+      name: book
+      title: Orderbook L2 (Full)
+      summary: >
+        Full order book snapshot and real-time updates (level 2, aggregated by
+        price level).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BookMessage'
+
+    Book5:
+      name: book5
+      title: Orderbook L2 (max 2x5)
+      summary: First 5 best bid and ask levels.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BookSnapshotMessage5'
+
+    Book20:
+      name: book20
+      title: Orderbook L2 (max 2x20)
+      summary: First 20 best bid and ask levels.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BookSnapshotMessage20'
+
+    Book50:
+      name: book50
+      title: Orderbook L2 (max 2x50)
+      summary: First 50 best bid and ask levels.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BookSnapshotMessage50'
+
+    BookL3:
+      name: book_l3
+      title: Orderbook L3 (Full)
+      summary: >
+        Level 3 (order-by-order) book snapshot and updates. Each entry is a
+        passive order with id, price, size, and update_type.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BookL3Message'
+
+    Ohlcv:
+      name: ohlcv
+      title: OHLCV
+      summary: >
+        OHLCV bar updates between 1SEC and 1DAY periods; emitted when a period
+        closes or every ~5 seconds during an open period.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OhlcvMessage'
+
+    Exrate:
+      name: exrate
+      title: Exchange Rate (VWAP-24H)
+      summary: >
+        Rolling 24-hour Volume Weighted Average Price across selected data
+        sources for a base/quote asset pair.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ExrateMessage'
+
+    Asset:
+      name: asset
+      title: Asset metadata
+      summary: >
+        Asset metadata snapshot and periodic updates (volumes, USD price,
+        data coverage ranges).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AssetMessage'
+
+    Exchange:
+      name: exchange
+      title: Exchange metadata
+      summary: >
+        Exchange metadata snapshot and periodic updates (data coverage,
+        symbols count, website).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ExchangeMessage'
+
+    Symbol:
+      name: symbol
+      title: Symbol metadata
+      summary: >
+        Symbol metadata snapshot and periodic updates (volume, price,
+        precision, data coverage).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SymbolMessage'
+
+    Reconnect:
+      name: reconnect
+      title: Reconnect notification
+      summary: >
+        Sent before a planned server restart or shutdown so clients can
+        gracefully reconnect within the indicated window.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ReconnectMessage'
+
+    Heartbeat:
+      name: heartbeat
+      title: Heartbeat
+      summary: >
+        Sent every second of silence in the data stream when the client opted
+        in via `heartbeat: true` in the Hello/Subscribe message.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/HeartbeatMessage'
+
+    Error:
+      name: error
+      title: Error
+      summary: >
+        Permanent error notice. The server closes the underlying WebSocket
+        connection after sending this message.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ErrorMessage'
+
+  schemas:
+
+    HelloPayload:
+      type: object
+      description: Hello / handshake envelope.
+      required:
+        - type
+        - apikey
+        - heartbeat
+        - subscribe_data_type
+      properties:
+        type:
+          type: string
+          const: hello
+          description: Must be `hello`.
+        apikey:
+          type: string
+          format: uuid
+          description: CoinAPI API key (UUID).
+        heartbeat:
+          type: boolean
+          description: >
+            `true` to receive `heartbeat` messages every second of stream
+            silence, otherwise `false`.
+        subscribe_data_type:
+          type: array
+          description: >
+            List of data types to receive. Allowed values - `trade`, `quote`,
+            `book`, `book5`, `book20`, `book50`, `book_l3`, `ohlcv`, `exrate`,
+            `asset`, `exchange`, `symbol`.
+          items:
+            type: string
+            enum:
+              - trade
+              - quote
+              - book
+              - book5
+              - book20
+              - book50
+              - book_l3
+              - ohlcv
+              - exrate
+              - asset
+              - exchange
+              - symbol
+        subscribe_filter_symbol_id:
+          type: array
+          description: >
+            Symbol identifier prefixes to subscribe to. Append `$` for exact
+            match instead of prefix match. Optional.
+          items:
+            type: string
+        subscribe_filter_asset_id:
+          type: array
+          description: >
+            Asset identifiers (e.g. `BTC`) or asset pairs (e.g. `BTC/USD`) to
+            filter on. Optional. Required when subscribing to `exrate`.
+          items:
+            type: string
+        subscribe_filter_period_id:
+          type: array
+          description: OHLCV period identifiers to filter on. Optional.
+          items:
+            type: string
+        subscribe_filter_exchange_id:
+          type: array
+          description: Exchange identifiers to filter on. Optional.
+          items:
+            type: string
+        subscribe_update_limit_ms_quote:
+          type: integer
+          description: >
+            Minimum delay in milliseconds between quote updates for the same
+            symbol. Optional.
+        subscribe_update_limit_ms_book_snapshot:
+          type: integer
+          description: >
+            Minimum delay in milliseconds between book snapshot (book5,
+            book20, book50) updates for the same symbol. Optional.
+        subscribe_update_limit_ms_exrate:
+          type: integer
+          description: >
+            Minimum delay in milliseconds between exchange rate updates for
+            the same asset pair. Optional.
+
+    SubscribePayload:
+      type: object
+      description: >
+        Incremental `subscribe` / `unsubscribe` message. Shares the same
+        envelope shape as `hello` but `type` is `subscribe` or `unsubscribe`,
+        and `apikey` is not required (the connection is already authenticated).
+      required:
+        - type
+        - subscribe_data_type
+      properties:
+        type:
+          type: string
+          enum:
+            - subscribe
+            - unsubscribe
+        heartbeat:
+          type: boolean
+        subscribe_data_type:
+          type: array
+          items:
+            type: string
+            enum:
+              - trade
+              - quote
+              - book
+              - book5
+              - book20
+              - book50
+              - book_l3
+              - ohlcv
+              - exrate
+              - asset
+              - exchange
+              - symbol
+        subscribe_filter_symbol_id:
+          type: array
+          items:
+            type: string
+        subscribe_filter_asset_id:
+          type: array
+          items:
+            type: string
+        subscribe_filter_period_id:
+          type: array
+          items:
+            type: string
+        subscribe_filter_exchange_id:
+          type: array
+          items:
+            type: string
+        subscribe_update_limit_ms_quote:
+          type: integer
+        subscribe_update_limit_ms_book_snapshot:
+          type: integer
+        subscribe_update_limit_ms_exrate:
+          type: integer
+
+    TradeMessage:
+      type: object
+      required:
+        - type
+        - symbol_id
+        - sequence
+        - time_exchange
+        - time_coinapi
+        - uuid
+        - price
+        - size
+        - taker_side
+      properties:
+        type:
+          type: string
+          const: trade
+        symbol_id:
+          type: string
+          description: CoinAPI symbol identifier.
+        sequence:
+          type: integer
+          format: int64
+          description: >
+            Sequence number per (type, symbol_id), valid only for the lifespan
+            of the connection.
+        time_exchange:
+          type: string
+          format: date-time
+          description: Trade time reported by exchange.
+        time_coinapi:
+          type: string
+          format: date-time
+          description: Time when CoinAPI first received the trade from the exchange.
+        uuid:
+          type: string
+          format: uuid
+          description: CoinAPI unique trade identifier (UUIDv4).
+        price:
+          type: number
+          description: Transaction price.
+        size:
+          type: number
+          description: >
+            Base asset amount traded. A value of zero means the price is a
+            data-point marker (e.g. index time series).
+        taker_side:
+          type: string
+          description: Aggressor side of the trade.
+          enum:
+            - BUY
+            - SELL
+            - BUY_ESTIMATED
+            - SELL_ESTIMATED
+            - UNKNOWN
+
+    QuoteMessage:
+      type: object
+      required:
+        - type
+        - symbol_id
+        - sequence
+        - time_exchange
+        - time_coinapi
+        - ask_price
+        - ask_size
+        - bid_price
+        - bid_size
+      properties:
+        type:
+          type: string
+          const: quote
+        symbol_id:
+          type: string
+        sequence:
+          type: integer
+          format: int64
+        time_exchange:
+          type: string
+          format: date-time
+        time_coinapi:
+          type: string
+          format: date-time
+        ask_price:
+          type: number
+          description: Best asking price.
+        ask_size:
+          type: number
+          description: >
+            Volume resting on the best ask. A value of zero means size is
+            unknown.
+        bid_price:
+          type: number
+          description: Best bidding price.
+        bid_size:
+          type: number
+          description: >
+            Volume resting on the best bid. A value of zero means size is
+            unknown.
+
+    BookLevel:
+      type: object
+      required:
+        - price
+        - size
+      properties:
+        price:
+          type: number
+          description: Price of bid/ask.
+        size:
+          type: number
+          description: Volume resting on this price level in base amount.
+
+    BookMessage:
+      type: object
+      required:
+        - type
+        - symbol_id
+        - sequence
+        - time_exchange
+        - time_coinapi
+        - is_snapshot
+        - asks
+        - bids
+      properties:
+        type:
+          type: string
+          const: book
+        symbol_id:
+          type: string
+        sequence:
+          type: integer
+          format: int64
+        time_exchange:
+          type: string
+          format: date-time
+        time_coinapi:
+          type: string
+          format: date-time
+        is_snapshot:
+          type: boolean
+          description: >
+            `true` if this message is a full snapshot; otherwise only changed
+            levels since the previous message are included.
+        asks:
+          type: array
+          description: Ask levels in order from best to worst.
+          items:
+            $ref: '#/components/schemas/BookLevel'
+        bids:
+          type: array
+          description: Bid levels in order from best to worst.
+          items:
+            $ref: '#/components/schemas/BookLevel'
+
+    BookSnapshotMessage5:
+      type: object
+      required:
+        - type
+        - symbol_id
+        - sequence
+        - time_exchange
+        - time_coinapi
+        - asks
+        - bids
+      properties:
+        type:
+          type: string
+          const: book5
+        symbol_id:
+          type: string
+        sequence:
+          type: integer
+          format: int64
+        time_exchange:
+          type: string
+          format: date-time
+        time_coinapi:
+          type: string
+          format: date-time
+        asks:
+          type: array
+          maxItems: 5
+          description: Best 5 ask levels, best to worst.
+          items:
+            $ref: '#/components/schemas/BookLevel'
+        bids:
+          type: array
+          maxItems: 5
+          description: Best 5 bid levels, best to worst.
+          items:
+            $ref: '#/components/schemas/BookLevel'
+
+    BookSnapshotMessage20:
+      type: object
+      required:
+        - type
+        - symbol_id
+        - sequence
+        - time_exchange
+        - time_coinapi
+        - asks
+        - bids
+      properties:
+        type:
+          type: string
+          const: book20
+        symbol_id:
+          type: string
+        sequence:
+          type: integer
+          format: int64
+        time_exchange:
+          type: string
+          format: date-time
+        time_coinapi:
+          type: string
+          format: date-time
+        asks:
+          type: array
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/BookLevel'
+        bids:
+          type: array
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/BookLevel'
+
+    BookSnapshotMessage50:
+      type: object
+      required:
+        - type
+        - symbol_id
+        - sequence
+        - time_exchange
+        - time_coinapi
+        - asks
+        - bids
+      properties:
+        type:
+          type: string
+          const: book50
+        symbol_id:
+          type: string
+        sequence:
+          type: integer
+          format: int64
+        time_exchange:
+          type: string
+          format: date-time
+        time_coinapi:
+          type: string
+          format: date-time
+        asks:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/BookLevel'
+        bids:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/BookLevel'
+
+    BookL3Level:
+      type: object
+      required:
+        - id
+        - price
+        - size
+      properties:
+        id:
+          type: string
+          nullable: true
+          description: >
+            Order identifier. May be null when the upstream exchange does not
+            provide order-level resolution (level-2 fallback).
+        price:
+          type: number
+        size:
+          type: number
+        update_type:
+          type: string
+          description: >
+            Type of update for the order. Not present on snapshot entries.
+          enum:
+            - ADD
+            - UPDATE
+            - SUBTRACT
+            - DELETE
+            - MATCH
+
+    BookL3Message:
+      type: object
+      required:
+        - type
+        - symbol_id
+        - sequence
+        - time_exchange
+        - time_coinapi
+        - is_snapshot
+        - asks
+        - bids
+      properties:
+        type:
+          type: string
+          const: book_l3
+        symbol_id:
+          type: string
+        sequence:
+          type: integer
+          format: int64
+        time_exchange:
+          type: string
+          format: date-time
+        time_coinapi:
+          type: string
+          format: date-time
+        is_snapshot:
+          type: boolean
+        asks:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookL3Level'
+        bids:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookL3Level'
+
+    OhlcvMessage:
+      type: object
+      required:
+        - type
+        - symbol_id
+        - sequence
+        - time_period_start
+        - time_period_end
+        - time_open
+        - time_close
+        - price_open
+        - price_high
+        - price_low
+        - price_close
+        - volume_traded
+        - trades_count
+      properties:
+        type:
+          type: string
+          const: ohlcv
+        symbol_id:
+          type: string
+        sequence:
+          type: integer
+          format: int64
+        period_id:
+          type: string
+          description: Identifier of timeseries period (e.g. `1MIN`, `1SEC`).
+        time_period_start:
+          type: string
+          format: date-time
+          description: Period start (range left inclusive).
+        time_period_end:
+          type: string
+          format: date-time
+          description: Period end (range right exclusive).
+        time_open:
+          type: string
+          format: date-time
+          description: Time of first trade inside the period.
+        time_close:
+          type: string
+          format: date-time
+          description: Time of last trade inside the period.
+        price_open:
+          type: number
+        price_high:
+          type: number
+        price_low:
+          type: number
+        price_close:
+          type: number
+        volume_traded:
+          type: number
+          description: Cumulative base amount traded inside the period.
+        trades_count:
+          type: integer
+          description: Number of trades executed inside the period.
+
+    ExrateMessage:
+      type: object
+      required:
+        - type
+        - asset_id_base
+        - asset_id_quote
+        - rate_type
+        - time
+        - rate
+      properties:
+        type:
+          type: string
+          const: exrate
+        asset_id_base:
+          type: string
+          description: Base asset identifier.
+        asset_id_quote:
+          type: string
+          description: Quote asset identifier (typically `USD`).
+        rate_type:
+          type: string
+          description: Rate calculation type.
+          enum:
+            - BASE_QUOTE_ISOLATED
+            - BASE_ALL_CROSSES_TO_REF
+            - BASE_AND_QUOTE_TO_REF
+        time:
+          type: string
+          format: date-time
+          description: Time of the exchange rate.
+        rate:
+          type: number
+          description: Exchange rate between the pair of assets.
+
+    AssetMessage:
+      type: object
+      description: >
+        Asset metadata. See the REST `/v1/assets` model for the full field
+        list; additional fields beyond those below may be present.
+      required:
+        - type
+        - asset_id
+      properties:
+        type:
+          type: string
+          const: asset
+        asset_id:
+          type: string
+        name:
+          type: string
+        type_is_crypto:
+          type: integer
+          description: 1 if asset is a cryptocurrency, 0 otherwise.
+        data_quote_start:
+          type: string
+          format: date-time
+        data_quote_end:
+          type: string
+          format: date-time
+        data_orderbook_start:
+          type: string
+          format: date-time
+        data_orderbook_end:
+          type: string
+          format: date-time
+        data_trade_start:
+          type: string
+          format: date-time
+        data_trade_end:
+          type: string
+          format: date-time
+        data_symbols_count:
+          type: integer
+        volume_1hrs_usd:
+          type: number
+        volume_1day_usd:
+          type: number
+        volume_1mth_usd:
+          type: number
+        price_usd:
+          type: number
+
+    ExchangeMessage:
+      type: object
+      description: >
+        Exchange metadata. See the REST `/v1/exchanges` model for the full
+        field list.
+      required:
+        - type
+        - exchange_id
+      properties:
+        type:
+          type: string
+          const: exchange
+        exchange_id:
+          type: string
+        website:
+          type: string
+          format: uri
+        name:
+          type: string
+        data_start:
+          type: string
+          format: date
+        data_end:
+          type: string
+          format: date
+        data_quote_start:
+          type: string
+          format: date-time
+        data_quote_end:
+          type: string
+          format: date-time
+        data_orderbook_start:
+          type: string
+          format: date-time
+        data_orderbook_end:
+          type: string
+          format: date-time
+        data_trade_start:
+          type: string
+          format: date-time
+        data_trade_end:
+          type: string
+          format: date-time
+        data_symbols_count:
+          type: integer
+
+    SymbolMessage:
+      type: object
+      description: >
+        Symbol metadata. See the REST `/v1/symbols` model for the full field
+        list.
+      required:
+        - type
+        - symbol_id
+      properties:
+        type:
+          type: string
+          const: symbol
+        symbol_id:
+          type: string
+        exchange_id:
+          type: string
+        symbol_type:
+          type: string
+          description: e.g. SPOT, FUTURES, OPTION, PERPETUAL, INDEX.
+        asset_id_base:
+          type: string
+        asset_id_quote:
+          type: string
+        asset_id_unit:
+          type: string
+        future_contract_unit:
+          type: number
+        future_contract_unit_asset:
+          type: string
+        data_start:
+          type: string
+          format: date
+        data_end:
+          type: string
+          format: date
+        data_quote_start:
+          type: string
+          format: date-time
+        data_quote_end:
+          type: string
+          format: date-time
+        data_orderbook_start:
+          type: string
+          format: date-time
+        data_orderbook_end:
+          type: string
+          format: date-time
+        data_trade_start:
+          type: string
+          format: date-time
+        data_trade_end:
+          type: string
+          format: date-time
+        volume_1hrs:
+          type: number
+        volume_1hrs_usd:
+          type: number
+        volume_1day:
+          type: number
+        volume_1day_usd:
+          type: number
+        volume_1mth:
+          type: number
+        volume_1mth_usd:
+          type: number
+        price:
+          type: number
+        symbol_id_exchange:
+          type: string
+        asset_id_base_exchange:
+          type: string
+        asset_id_quote_exchange:
+          type: string
+        price_precision:
+          type: number
+        size_precision:
+          type: number
+
+    ReconnectMessage:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          const: reconnect
+        within_seconds:
+          type: integer
+          description: Seconds within which the client should reconnect.
+        before_time:
+          type: string
+          format: date-time
+          description: Absolute time by which the client should reconnect.
+
+    HeartbeatMessage:
+      type: object
+      description: >
+        NOTE - in the official documentation the example JSON uses the value
+        `"hearbeat"` (a typo upstream). Clients should accept both `heartbeat`
+        and `hearbeat`.
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - heartbeat
+            - hearbeat
+
+    ErrorMessage:
+      type: object
+      required:
+        - type
+        - message
+      properties:
+        type:
+          type: string
+          const: error
+        message:
+          type: string
+          description: Human-readable error description.

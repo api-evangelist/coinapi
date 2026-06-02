@@ -19,7 +19,7 @@ kind: company
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-03-01'
-modified: '2026-04-28'
+modified: '2026-05-29'
 position: Consumer
 description: >-
   CoinAPI is a financial data and execution platform delivering normalized
@@ -57,6 +57,8 @@ apis:
         type: FAQ
       - url: https://www.coinapi.io/products/market-data-api/docs/fix
         type: FIX Documentation
+      - url: https://raw.githubusercontent.com/api-evangelist/coinapi/refs/heads/main/asyncapi/coinapi-asyncapi.yml
+        type: AsyncAPI
     description: >-
       Normalized cryptocurrency market data covering more than 350 exchanges
       and 28,000+ assets. Provides trades, quotes, order books, OHLCV time
