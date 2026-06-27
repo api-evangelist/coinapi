@@ -168,7 +168,7 @@ common:
     url: https://www.coinapi.io/privacy-policy
   - type: TermsOfService
     url: https://www.coinapi.io/terms-of-service
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://www.coinapi.io/llms.txt
 maintainers:
   - FN: Kin Lane
