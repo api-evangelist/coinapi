@@ -2,11 +2,13 @@
   "repo": "coinapi",
   "feeds": [
     {
-      "source": "https://www.coinapi.io/blog",
+      "source": "https://github.com/coinapi",
+      "feed_url": "https://github.com/coinapi",
+      "title": "",
       "saved": 0,
-      "error": "HTTP 403 Forbidden"
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T12:33:57Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 0
 }
