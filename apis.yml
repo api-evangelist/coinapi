@@ -145,7 +145,7 @@ apis:
     name: CoinAPI Indexes API
     tags:
       - Aggregation
-      - Benchmark
+      - Benchmarks
       - Cryptocurrency
       - Indexes
       - Reference Rates
