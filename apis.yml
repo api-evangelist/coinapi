@@ -43,7 +43,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/coinapi.pn
 access: 3rd-Party
 created: '2025-03-01'
 modified: '2026-05-29'
-position: Consumer
+position: Consuming
 description: >-
   CoinAPI is a financial data and execution platform delivering normalized
   real-time and historical cryptocurrency market data and trade execution
