@@ -1,0 +1,80 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "CoinAPI",
+    "identifier": "did:web:www.coinapi.io"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:coinapi.io:server:market-data-mcp",
+      "displayName": "CoinAPI Market Data MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.coinapi.io/.well-known/mcp/server-card.json",
+      "representativeQueries": [
+        "latest BTC USDT quote",
+        "OHLCV candles for BINANCE_SPOT_BTC_USDT",
+        "list CoinAPI market data MCP tools"
+      ]
+    },
+    {
+      "identifier": "urn:air:coinapi.io:server:indexes-mcp",
+      "displayName": "CoinAPI Indexes MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://www.coinapi.io/.well-known/mcp/server-cards.json",
+      "representativeQueries": [
+        "current CoinAPI index value",
+        "historical index weights"
+      ]
+    },
+    {
+      "identifier": "urn:air:coinapi.io:server:flat-files-mcp",
+      "displayName": "CoinAPI Flat Files MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://mcp.flatfiles.coinapi.io/mcp",
+      "representativeQueries": [
+        "download historical crypto trades dataset",
+        "list CoinAPI flat file datasets"
+      ]
+    },
+    {
+      "identifier": "urn:air:coinapi.io:api:market-data-rest",
+      "displayName": "CoinAPI Market Data REST API",
+      "type": "application/vnd.oai.openapi+json",
+      "url": "https://rest.coinapi.io/swagger/v1/swagger.json",
+      "representativeQueries": [
+        "GET latest trades from CoinAPI REST",
+        "CoinAPI OpenAPI for market data"
+      ]
+    },
+    {
+      "identifier": "urn:air:coinapi.io:api:catalog",
+      "displayName": "CoinAPI API Catalog",
+      "type": "application/linkset+json",
+      "url": "https://www.coinapi.io/.well-known/api-catalog",
+      "representativeQueries": [
+        "which CoinAPI REST APIs are public",
+        "where is the CoinAPI OpenAPI spec"
+      ]
+    },
+    {
+      "identifier": "urn:air:coinapi.io:skill:market-data",
+      "displayName": "CoinAPI Market Data skill",
+      "type": "text/markdown",
+      "url": "https://www.coinapi.io/.well-known/agent-skills/coinapi-market-data/SKILL.md",
+      "representativeQueries": [
+        "how do I connect an agent to CoinAPI MCP",
+        "CoinAPI API key authentication for agents"
+      ]
+    },
+    {
+      "identifier": "urn:air:coinapi.io:auth:api-key",
+      "displayName": "CoinAPI agent authentication",
+      "type": "text/markdown",
+      "url": "https://www.coinapi.io/auth.md",
+      "representativeQueries": [
+        "how do agents authenticate to CoinAPI",
+        "X-CoinAPI-Key header"
+      ]
+    }
+  ]
+}
