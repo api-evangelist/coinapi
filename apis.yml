@@ -11,6 +11,18 @@ tags:
   - Execution Management
   - FIX
   - Market Data
+  - Order Book
+  - REST
+  - WebSocket
+tags_raw:
+  - Blockchain
+  - Crypto Indexes
+  - Crypto Metrics
+  - Cryptocurrency
+  - EMS
+  - Execution Management
+  - FIX
+  - Market Data
   - Order Books
   - REST
   - WebSocket
@@ -59,6 +71,16 @@ apis:
   - aid: coinapi:market-data-api
     name: CoinAPI Market Data API
     tags:
+      - Crypto Metrics
+      - Cryptocurrency
+      - Exchange Rates
+      - FIX
+      - Market Data
+      - OHLCV
+      - Order Book
+      - REST
+      - WebSocket
+    tags_raw:
       - Crypto Metrics
       - Cryptocurrency
       - Exchange Rates
@@ -147,7 +169,7 @@ apis:
       - Aggregation
       - Benchmarks
       - Cryptocurrency
-      - Indexes
+      - Index
       - Reference Rates
     tags_raw:
       - Aggregation
