@@ -14,6 +14,7 @@ tags:
   - Order Book
   - REST
   - WebSocket
+  - Real-Time
 tags_raw:
   - Blockchain
   - Crypto Indexes
@@ -26,6 +27,7 @@ tags_raw:
   - Order Books
   - REST
   - WebSocket
+  - Real-Time
 type: Index
 kind: company
 deliveryModel:
