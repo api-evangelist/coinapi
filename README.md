@@ -1,4 +1,4 @@
-# CoinAPI (coinapi)
+# CoinAPI
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,96 +66,126 @@
 
 CoinAPI is a financial data and execution platform delivering normalized real-time and historical cryptocurrency market data and trade execution across more than 350 exchanges. Its product family covers a Market Data API (REST, WebSocket, FIX, and flat-file S3 delivery) for trades, quotes, order books, OHLCV, exchange rates, and derivatives metrics; an EMS Trading API (Execution Management System) that lets users place, manage, and route orders across multiple venues through one normalized REST/WebSocket/FIX interface; and Index and Metrics APIs that aggregate cross-exchange data into reference indexes and risk metrics. FIX endpoints (fix.coinapi.io) use GeoDNS to route to the nearest datacenter for low-latency connectivity.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/coinapi/refs/heads/main/apis.yml)
+**Areas:** Blockchain · Crypto Indexes · Crypto Metrics · Cryptocurrency · EMS · Execution Management · FIX · Market Data · Order Book · REST · WebSocket · Real-Time
 
-## Scope
+## CoinAPI on APIs.io
 
-- **Type:** Index
-- **Position:** Consuming
-- **Access:** 3rd-Party
+Everything profiled for CoinAPI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/coinapi/](https://apis.io/providers/coinapi/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (3)
 
-- Blockchain
-- Crypto Indexes
-- Crypto Metrics
-- Cryptocurrency
-- EMS
-- Execution Management
-- FIX
-- Market Data
-- Order Books
-- REST
-- WebSocket
+- [CoinAPI Market Data API](https://apis.io/apis/coinapi/market-data-api/) — Normalized cryptocurrency market data covering more than 350 exchanges and 28,000+ assets. Provides trades, quotes, order books, OHLCV time series, exchange…
+- [CoinAPI EMS Trading API](https://apis.io/apis/coinapi/ems-trading-api/) — CoinAPI's Execution Management System (EMS) is a unified, multi-exchange crypto trading API that lets institutional traders, market makers, and builders…
+- [CoinAPI Indexes API](https://apis.io/apis/coinapi/indexes-api/) — The Indexes API aggregates data from many exchanges to compute reference rates and benchmark indexes that summarize broad market conditions for a given…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-03-01
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### CoinAPI Market Data API
-Normalized cryptocurrency market data covering more than 350 exchanges and 28,000+ assets. Provides trades, quotes, order books, OHLCV time series, exchange rates, and derivatives metrics (funding rates, mark prices, liquidations, open interest, volumes). Delivered through REST for historical snapshots and lookups, WebSocket and FIX for real-time streaming, and S3 flat files for bulk historical analysis.
+Event-driven and webhook contracts.
 
-**Human URL:** [https://www.coinapi.io/products/market-data-api](https://www.coinapi.io/products/market-data-api)
+- [CoinAPI Market Data WebSocket API](https://apis.io/asyncapis/coinapi/coinapi-asyncapi/)
 
-**Base URL:** `https://rest.coinapi.io`
+#### Event channels (1)
 
-#### Tags
+Individual events and webhooks the provider emits.
 
-- Crypto Metrics, Cryptocurrency, Exchange Rates, FIX, Market Data, OHLCV, Order Books, REST, WebSocket
+- [/](https://apis.io/channels/coinapi/untitled/)
 
-#### Properties
+#### Governance rules (1)
 
-- [Documentation](https://docs.coinapi.io/market-data/)
-- [Landing Page](https://www.coinapi.io/products/market-data-api)
-- [FAQ](https://www.coinapi.io/products/market-data-api/faq)
-- [FIX Documentation](https://www.coinapi.io/products/market-data-api/docs/fix)
+Spectral rulesets for the provider's contracts.
 
-### CoinAPI EMS Trading API
-CoinAPI's Execution Management System (EMS) is a unified, multi-exchange crypto trading API that lets institutional traders, market makers, and builders place, modify, and cancel orders across many connected venues from a single normalized interface. Available over REST, WebSocket, and FIX, the EMS handles credential vaulting, order routing, position and balance retrieval, and execution reporting.
+- [CoinAPI — asyncapi rules](https://apis.io/rules/coinapi/coinapi-asyncapi-spectral-rules/)
 
-**Human URL:** [https://www.coinapi.io/products/ems-api](https://www.coinapi.io/products/ems-api)
+#### Security (1)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Cryptocurrency, EMS, Execution Management, FIX, Order Management, REST, Trading, WebSocket
+- [Coinapi Domain Security](https://apis.io/security/coinapi/coinapi-domain-security/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Landing Page](https://www.coinapi.io/products/ems-api)
-- [FAQ](https://www.coinapi.io/products/ems-api/faq)
-- [Guide](https://www.coinapi.io/blog/maximize-trading-potential-ems-trading-api-guide)
+Published plans, tiers and prices.
 
-### CoinAPI Indexes API
-The Indexes API aggregates data from many exchanges to compute reference rates and benchmark indexes that summarize broad market conditions for a given asset. Useful for derivatives settlement, NAV computation, and research where a single, defensible price point is required across a fragmented market.
+- [Coinapi Plans Pricing](https://apis.io/plans/coinapi/coinapi-plans-pricing/)
 
-**Human URL:** [https://www.coinapi.io/products/indexes-api](https://www.coinapi.io/products/indexes-api)
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Aggregation, Benchmark, Cryptocurrency, Indexes, Reference Rates
+- [Coinapi Rate Limits](https://apis.io/rate-limits/coinapi/coinapi-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Landing Page](https://www.coinapi.io/products/indexes-api)
-- [Documentation](https://docs.coinapi.io/)
+What the API costs to run, by operation.
 
-## Common Properties
+- [Coinapi Finops](https://apis.io/finops/coinapi/coinapi-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.coinapi.io/)
 - [Documentation](https://docs.coinapi.io/)
 - [Pricing](https://www.coinapi.io/pricing)
 - [Changelog](https://docs.coinapi.io/general/changelog/)
-- [Status](https://status.coinapi.io/)
-- [GitHub](https://github.com/coinapi)
 - [Blog](https://www.coinapi.io/blog)
-- [Privacy Policy](https://www.coinapi.io/privacy-policy)
-- [Terms of Service](https://www.coinapi.io/terms-of-service)
+- [Terms of service](https://www.coinapi.io/terms-of-service)
+- [Privacy policy](https://www.coinapi.io/privacy-policy)
+- [Status](https://status.coinapi.io/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 24.0** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 69.6 |
+| Contract quality | 40.6 |
+| Contract governance | 11.4 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 2.4 |
+| Access clarity | 18.4 |
+
+**Agent readiness 14.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.1** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/coinapi/](https://apis.io/providers/coinapi/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for CoinAPI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/coinapi/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
